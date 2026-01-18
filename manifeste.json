@@ -1,0 +1,1 @@
+{ "name": "Sunny Chat Pro", "short_name": "SunnyChat", "start_url": "index.html", "display": "standalone", "background_color": "#efe7dd", "theme_color": "#075e54", "icons": [ { "src": "https://cdn-icons-png.flaticon.com/512/124/124034.png", "sizes": "512x512", "type": "image/png" } ] }
