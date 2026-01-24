@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <meta name="description" content="sunny chat pro - Application de discussion en ligne rapide et securisée.">
     <meta name="keywords" content="sunny chat, chat en ligne, Discussion, Application Chat">
-    <meta name="author" content="Ton Nom">
+    <meta name="author" content="Aya">
     <link rel="apple-touch-icon" href="https://img.icons8.com/color/512/star--v1.png">
     <title>Sunny Chat Pro - Ultra Gold</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -49,7 +49,9 @@
         <span><b>SUNNY CHAT PRO</b></span>
         <div class="header-btns">
             <button id="v-btn" style="background:#3498db;" onclick="startVideo()">Vidéo</button>
-            <button id="c-btn" style="background:orange;" onclick="clearChat()">Vider</button>
+            <button id="c-btn" style="background:darkorange;" onclick="totalCleanup()">NETTOYAGE TOTAL</button>
+
+            
             <button id="l-btn" style="background:red;" onclick="logout()">Quitter</button>
         </div>
     </div>
@@ -188,8 +190,30 @@
             } catch (e) { console.error("Erreur vidéo:", e); } 
         }
 
-        async function clearChat() { if (confirm("Vider ?")) await _sb.from('messages').delete().eq('room', room); }
+        
+       async function totalCleanup() {
+    if (!confirm("Voulez-vous tout effacer (Messages + Vidéos + Photos) ?")) return;
 
+    try {
+        // 1. Effacer les messages texte dans la base de données
+        await _sb.from('messages').delete().eq('room', room);
+
+        // 2. Lister les fichiers présents dans le storage
+        const { data: files, error: listError } = await _sb.storage.from('chat_filess').list();
+
+        if (files && files.length > 0) {
+            // 3. Supprimer physiquement les fichiers du serveur
+            const filesToRemove = files.map(f => f.name);
+            await _sb.storage.from('chat_filess').remove(filesToRemove);
+        }
+
+        alert("Le salon et le stockage sont maintenant vides !");
+        location.reload(); // Rafraîchit pour confirmer que tout a disparu
+    } catch (e) {
+        console.error("Erreur lors du nettoyage :", e);
+        alert("Une erreur est survenue lors du nettoyage.");
+    }
+}
         function logout() { localStorage.clear(); location.reload(); }
 
         function display(d) {
@@ -216,6 +240,7 @@
     </script>
 </body>
 </html>
+
 
 
 
