@@ -197,8 +197,9 @@
 
         function startVideo() {
             const link = `https://meet.jit.si/SunnyChat_${room}`;
-            _sb.from('messages').insert([{ name: user, message: link, room: room, type: 'video_invite' }]);
-            window.open(link, '_blank');
+            // 1. on envoie un message automatique dans le chat pour prevenir tout le monde await
+            _sb.from('messages').insert([{ name: user, message: je lance un appel video ! cliquez ici pour me rejoindre : " + callLink, room: room, type: 'text' }]);
+            window.open(callLink, '_blank');
         }
 
         async function clearChat() { if (confirm("Vider ?")) await _sb.from('messages').delete().eq('room', room); }
@@ -232,6 +233,7 @@
     </script>
 </body>
 </html>
+
 
 
 
