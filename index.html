@@ -195,12 +195,10 @@
 
         function stopRec() { if(recorder) { recorder.stop(); document.getElementById('voice-btn').style.color = 'black'; } }
 
-        function startVideo() {
-            const callLink = "https://meet.jit.si/SunnyChat_"+room;
-            // 1. on envoie un message automatique dans le chat pour prevenir tout le monde await
-            _sb.from('messages').insert([{ name: user, message: je lance un appel video ! cliquez ici pour me rejoindre : " + callLink, room: room, type: 'text' }]);
-            window.open(callLink, '_blank');
+       
         }
+
+        async function startVideo() { const callLink = "https://meet.jit.si/SunnyChat_" + room; try { // 1. Envoie l'alerte dans le chat pour faire "biper" les autres await _sb.from('messages').insert([ { name: user, message: "📞 JE LANCE UN APPEL VIDÉO ! Cliquez ici pour me rejoindre : " + callLink, room: room, type: 'text' } ]); // 2. Ouvre la vidéo dans un nouvel onglet window.open(callLink, '_blank'); } catch (e) { console.error("Erreur vidéo:", e); } }
 
         async function clearChat() { if (confirm("Vider ?")) await _sb.from('messages').delete().eq('room', room); }
 
@@ -233,6 +231,7 @@
     </script>
 </body>
 </html>
+
 
 
 
