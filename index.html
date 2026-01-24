@@ -196,7 +196,7 @@
         function stopRec() { if(recorder) { recorder.stop(); document.getElementById('voice-btn').style.color = 'black'; } }
 
         function startVideo() {
-            const link = `https://meet.jit.si/SunnyChat_${room}`;
+            const callLink = "https://meet.jit.si/SunnyChat_"+room;
             // 1. on envoie un message automatique dans le chat pour prevenir tout le monde await
             _sb.from('messages').insert([{ name: user, message: je lance un appel video ! cliquez ici pour me rejoindre : " + callLink, room: room, type: 'text' }]);
             window.open(callLink, '_blank');
@@ -233,6 +233,7 @@
     </script>
 </body>
 </html>
+
 
 
 
