@@ -196,7 +196,7 @@
         function stopRec() { if(recorder) { recorder.stop(); document.getElementById('voice-btn').style.color = 'black'; } }
 
        
-        }//
+        
 
         async function startVideo() { const callLink = "https://meet.jit.si/SunnyChat_" + room; try { // 1. Envoie l'alerte dans le chat pour faire "biper" les autres await _sb.from('messages').insert([ { name: user, message: "📞 JE LANCE UN APPEL VIDÉO ! Cliquez ici pour me rejoindre : " + callLink, room: room, type: 'text' } ]); // 2. Ouvre la vidéo dans un nouvel onglet window.open(callLink, '_blank'); } catch (e) { console.error("Erreur vidéo:", e); } }
 
@@ -231,6 +231,7 @@
     </script>
 </body>
 </html>
+
 
 
 
